@@ -1,0 +1,619 @@
+{
+  "name": "Checking duplicates before entering CRM",
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "workspaceId": "w3r95hi6",
+        "projectId": "pkvvdomh4unja7w",
+        "table": "m2z4uip08o7iytm",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Date",
+              "fieldValue": "={{ $now.minus({ hours: 3 }).toFormat('yyyy-MM-dd HH:mm:ss') }}"
+            },
+            {
+              "fieldName": "Name",
+              "fieldValue": "={{ $('Нормализация данных').item.json.Name }}"
+            },
+            {
+              "fieldName": "Phone",
+              "fieldValue": "={{ $('Нормализация данных').item.json.Phone- }}"
+            },
+            {
+              "fieldName": "Email",
+              "fieldValue": "={{ $('Нормализация данных').item.json.Email }}"
+            },
+            {
+              "fieldName": "Product",
+              "fieldValue": "={{ $('Нормализация данных').item.json.Product }}"
+            },
+            {
+              "fieldName": "Source",
+              "fieldValue": "={{ $('Нормализация данных').item.json.Source }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -16,
+        0
+      ],
+      "id": "5adf133c-2c22-468c-a644-44c4d1211142",
+      "name": "Создание записи в таблицу Дубликат",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "IdROFcq1ffdtKJGf",
+          "name": "NocoDB Token account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "create",
+        "workspaceId": "w3r95hi6",
+        "projectId": "pkvvdomh4unja7w",
+        "table": "mwclrxvlb31ha6w",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldName": "Date",
+              "fieldValue": "={{ $now.minus({ hours: 3 }).toFormat('yyyy-MM-dd HH:mm:ss') }}"
+            },
+            {
+              "fieldName": "Name",
+              "fieldValue": "={{ $('Нормализация данных').item.json.Name }}"
+            },
+            {
+              "fieldName": "Phone",
+              "fieldValue": "={{ $('Нормализация данных').item.json.Phone }}"
+            },
+            {
+              "fieldName": "Email",
+              "fieldValue": "={{ $('Нормализация данных').item.json.Email }}"
+            },
+            {
+              "fieldName": "Product",
+              "fieldValue": "={{ $('Нормализация данных').item.json.Product }}"
+            },
+            {
+              "fieldName": "Source",
+              "fieldValue": "={{ $('Нормализация данных').item.json.Source }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -16,
+        224
+      ],
+      "id": "7a8160d0-9ae8-4d8f-95d0-993ba984017c",
+      "name": "Создание записи в таблицу Лиды",
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "IdROFcq1ffdtKJGf",
+          "name": "NocoDB Token account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Форма заявки",
+        "formDescription": "Заполните форму. Укажите, что Вы хотите получить от нас.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Имя",
+              "placeholder": "Введите Ваше имя"
+            },
+            {
+              "fieldLabel": "Телефон",
+              "fieldType": "number",
+              "placeholder": "79998887766"
+            },
+            {
+              "fieldLabel": "Почта",
+              "placeholder": "test@mail.ru"
+            },
+            {
+              "fieldLabel": "Какой товар?",
+              "fieldType": "textarea",
+              "placeholder": "Болт, скрепки, ножницы, ПО"
+            },
+            {
+              "fieldLabel": "Источник",
+              "placeholder": "Сайт, Телефон, Telegram"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -1328,
+        96
+      ],
+      "id": "16659fb4-5ae2-4305-acfc-700c3542426e",
+      "name": "Заявки из формы",
+      "webhookId": "adfc0e00-b4d7-4d5b-a56f-6dac14994433"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0ef0f678-e249-4c01-9891-d5212ff52e43",
+              "name": "Phone",
+              "value": "={{ $json['Телефон'] ? $json['Телефон'].toString().replaceAll(/\\D/g, '') : '' }}",
+              "type": "string"
+            },
+            {
+              "id": "977bd696-b6fe-45a1-b3cf-bb1bd8597157",
+              "name": "Product",
+              "value": "={{ $json['Какой товар?'] }}",
+              "type": "string"
+            },
+            {
+              "id": "ce60c45e-e4f1-45bf-b1ab-1e82d0fe23ba",
+              "name": "Source",
+              "value": "={{ $json['Источник'] }}",
+              "type": "string"
+            },
+            {
+              "id": "e4f2d380-69f8-4eef-afbc-9fdd71046839",
+              "name": "Date",
+              "value": "={{ $now.toFormat('dd-MM-yyyy HH:mm:ss') }}",
+              "type": "string"
+            },
+            {
+              "id": "1fc82563-e554-4b15-8d63-7fe8c94829fe",
+              "name": "Name",
+              "value": "={{ $json['Имя'] }}",
+              "type": "string"
+            },
+            {
+              "id": "cc6f8161-12d0-48a6-9a4f-c4398099ce5e",
+              "name": "Email",
+              "value": "={{ $json['Почта'] ? $json['Почта'].toString().trim().toLowerCase() : '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1136,
+        96
+      ],
+      "id": "d8472bfa-7a31-44a0-bd5e-10490adb6b64",
+      "name": "Нормализация данных"
+    },
+    {
+      "parameters": {
+        "chatId": "962790782",
+        "text": "=<b>🆕 Новый лид</b>\n\n<b>👤 Имя:</b> <code>{{ $('Нормализация данных').item.json.Name }}</code>\n<b>📞 Телефон:</b> <code>{{ $('Нормализация данных').item.json.Phone }}</code>\n<b>📧 Email:</b> <code>{{ $('Нормализация данных').item.json.Email }}</code>\n<b>📦 Продукт:</b> <i>{{ $('Нормализация данных').item.json.Product }}</i>\n<b>🔗 Источник:</b> {{ $('Нормализация данных').item.json.Source }}\n<b>🕒 Время заявки:</b> <code>{{ $('Нормализация данных').item.json.Date }}</code>\n\n<a href=\"https://app.nocodb.com/w3r95hi6/pkvvdomh4unja7w/mwclrxvlb31ha6w/vw5cujyzgwae53ue/{{ $('Создание записи в таблицу Лиды').item.json.Id }}\">🔍 Открыть карточку лида</a>",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        384,
+        224
+      ],
+      "id": "305e5b8b-254f-4b7a-bbd1-cf48c4e5320c",
+      "name": "Сообщение менеджеру-Новый лид",
+      "webhookId": "003e2026-9b7c-4bb4-bb74-619f00d52d27",
+      "credentials": {
+        "telegramApi": {
+          "id": "eJTaK5yLetSQvfjt",
+          "name": "@AlbatoCourse_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "962790782",
+        "text": "=Получена заявка, статус: ДУБЛИКАТ по Phone или  Email.\nТребуется определить актуальность заявки:\nПовторная заявка ⚠️\n\nИсточник в Базе: {{ $('Проверка по Email').item.json.Source }}\nИсточник по заявке: {{ $('Нормализация данных').item.json.Source }}\n\nТелефон в Базе: {{ $('Проверка по Email').item.json.Phone }}\nТелефон по заявке: {{ $('Нормализация данных').item.json.Phone }}\n\nПочта в Базе: {{ $('Проверка по Email').item.json.Email }}\nПочта по заявке: {{ $('Нормализация данных').item.json.Email }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        176,
+        0
+      ],
+      "id": "13e102a3-1d95-4344-ac44-bec5f33251d9",
+      "name": "Сообщение менеджеру-ДУБЛИКАТ",
+      "webhookId": "71cdad49-b0f1-4bfc-ab66-dcb3859e1228",
+      "credentials": {
+        "telegramApi": {
+          "id": "eJTaK5yLetSQvfjt",
+          "name": "@AlbatoCourse_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "den.sa@bk.ru ",
+        "toEmail": "=den.sa@bk.ru",
+        "subject": "Автоматизация бизнеса",
+        "html": "=<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;\">\n  <h2 style=\"color: #2A4365; text-align: center;\">Рады знакомству, {{ $('Нормализация данных').item.json.Name }}! 🎉</h2>\n  <p>Мы получили вашу заявку и уже взяли её в работу.</p>\n  \n  <div style=\"background-color: #F7FAFC; padding: 15px; border-left: 4px solid #3182CE; margin: 20px 0;\">\n    <p style=\"margin: 5px 0;\"><strong>Заявка: {{ $('Нормализация данных').item.json.Product }}</strong></p>\n  </div>\n\n  <p>Спасибо, что доверили нам автоматизацию ваших процессов — мы очень ценим ваш интерес и сделаем всё, чтобы оправдать ожидания!</p>\n  \n  <p style=\"margin-top: 25px;\">Наш менеджер уже изучает детали. Он свяжется с вами в ближайшее время, чтобы всё обсудить и ответить на любые вопросы.</p>\n  \n  <hr style=\"border: 0; border-top: 1px solid #E2E8F0; margin: 20px 0;\">\n  <p style=\"font-size: 12px; color: #A0AEC0; text-align: center;\">С наилучшими пожеланиями, команда студии автоматизации</p>\n</div>\n\n\n",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        176,
+        224
+      ],
+      "id": "bb5f1fb0-5507-4844-888d-4ff4ff1d267e",
+      "name": "Письмо клиенту-заявка в работе",
+      "webhookId": "4fde4228-86ff-44fd-9e93-a199a3e93d1f",
+      "credentials": {
+        "smtp": {
+          "id": "OTcLIX2cWDDeI4tF",
+          "name": "SMTP account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "fromEmail": "den.sa@bk.ru ",
+        "toEmail": "=den.sa@bk.ru",
+        "subject": "Ваша заявка уже в работе — менеджер свяжется с вами",
+        "html": "=<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #ffffff;\">\n  \n  <div style=\"text-align: center; margin-bottom: 20px;\">\n    <h2 style=\"color: #2c3e50;\">🔄 Ваша заявка уже зарегистрирована</h2>\n  </div>\n\n  <p style=\"font-size: 16px; line-height: 1.5; color: #333;\">Здравствуйте, <strong>{{ $('Нормализация данных').item.json.Name }}</strong>!</p>\n\n  <p style=\"font-size: 16px; line-height: 1.5; color: #333;\">Вы недавно отправляли нам заявку на интересующий вас товар. Мы получили ваше повторное обращение и хотим вас заверить — ваш запрос уже находится в работе.</p>\n\n  <div style=\"background-color: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin: 20px 0;\">\n    <p style=\"margin: 5px 0; font-size: 15px;\"><strong>Ваша заявка:</strong> {{ $('Нормализация данных').item.json.Product }}</p>\n    <p style=\"margin: 5px 0; font-size: 15px;\"><strong>Телефон:</strong> {{ $('Нормализация данных').item.json.Phone }}</p>\n    <p style=\"margin: 5px 0; font-size: 15px;\"><strong>Email:</strong> {{ $('Нормализация данных').item.json.Email }}</p>\n  </div>\n\n  <p style=\"font-size: 16px; line-height: 1.5; color: #333;\">Наш менеджер свяжется с вами в ближайшее время (обычно в течение 15–30 минут), чтобы уточнить детали и ответить на все вопросы.</p>\n\n  <p style=\"font-size: 16px; line-height: 1.5; color: #333;\">Спасибо, что выбрали нашу студию автоматизации!</p>\n\n  <hr style=\"border: 0; border-top: 1px solid #e0e0e0; margin: 25px 0 15px;\">\n\n  <p style=\"font-size: 12px; color: #7f8c8d; text-align: center;\">\n    С уважением, команда студии автоматизации<br>\n    <span style=\"color: #3498db;\">info@вашсайт.ru</span> | <span>+7 (999) 123-45-67</span>\n  </p>\n</div>\n\n\n",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        384,
+        0
+      ],
+      "id": "33af5030-40b7-4d73-a1d7-32f0fa5f65cc",
+      "name": "Письмо клиенту-повторное обращение",
+      "webhookId": "38f219af-0ca2-417d-a8c0-423acc59e931",
+      "credentials": {
+        "smtp": {
+          "id": "OTcLIX2cWDDeI4tF",
+          "name": "SMTP account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -672,
+        112
+      ],
+      "id": "979f0e68-16f9-4a07-af9e-dd4b1bf7135f",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "workspaceId": "w3r95hi6",
+        "projectId": "pkvvdomh4unja7w",
+        "table": "mwclrxvlb31ha6w",
+        "limit": 1,
+        "options": {
+          "fields": [],
+          "where": "=(Phone,eq,{{ $json.Phone }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -896,
+        16
+      ],
+      "id": "494c1929-0df1-424d-aea7-fc53d4815536",
+      "name": "Проверка по Phone",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "IdROFcq1ffdtKJGf",
+          "name": "NocoDB Token account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "nocoDbApiToken",
+        "operation": "getAll",
+        "workspaceId": "w3r95hi6",
+        "projectId": "pkvvdomh4unja7w",
+        "table": "mwclrxvlb31ha6w",
+        "limit": 1,
+        "options": {
+          "fields": [],
+          "where": "=(Email,eq,{{ $json.Email }})"
+        }
+      },
+      "type": "n8n-nodes-base.nocoDb",
+      "typeVersion": 3,
+      "position": [
+        -896,
+        208
+      ],
+      "id": "71309622-2750-488f-95f3-3ed6d789d19b",
+      "name": "Проверка по Email",
+      "alwaysOutputData": true,
+      "credentials": {
+        "nocoDbApiToken": {
+          "id": "IdROFcq1ffdtKJGf",
+          "name": "NocoDB Token account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "002209c4-b2fb-4844-87f6-26043558be52",
+              "leftValue": "={{ $json.Id !== undefined }}",
+              "rightValue": "={{ $('Нормализация данных').item.json.Phone }}",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -256,
+        128
+      ],
+      "id": "1f6e386f-f73e-4fdc-a154-2d41525cccba",
+      "name": "Ветвление по дубликату",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "002209c4-b2fb-4844-87f6-26043558be52",
+              "leftValue": "={{ $json.CreatedAt }}",
+              "rightValue": "={{ $now.minus({ minutes: 5 }) }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "after"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -480,
+        112
+      ],
+      "id": "bc1d4173-a0a9-4e93-8110-716276e673dc",
+      "name": "Проверка 5 минут",
+      "alwaysOutputData": false
+    }
+  ],
+  "pinData": {
+    "Заявки из формы": [
+      {
+        "json": {
+          "Имя": "Сергей",
+          "Телефон": 9669666633,
+          "Почта": "denis6633y@gmail.com",
+          "Какой товар?": "автоматизация дубликатов",
+          "Источник": "ТГ",
+          "submittedAt": "2026-06-09T13:39:34.366+03:00",
+          "formMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Создание записи в таблицу Дубликат": {
+      "main": [
+        [
+          {
+            "node": "Сообщение менеджеру-ДУБЛИКАТ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Создание записи в таблицу Лиды": {
+      "main": [
+        [
+          {
+            "node": "Письмо клиенту-заявка в работе",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Заявки из формы": {
+      "main": [
+        [
+          {
+            "node": "Нормализация данных",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Нормализация данных": {
+      "main": [
+        [
+          {
+            "node": "Проверка по Phone",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Проверка по Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Сообщение менеджеру-ДУБЛИКАТ": {
+      "main": [
+        [
+          {
+            "node": "Письмо клиенту-повторное обращение",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Письмо клиенту-заявка в работе": {
+      "main": [
+        [
+          {
+            "node": "Сообщение менеджеру-Новый лид",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Проверка 5 минут",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Проверка по Phone": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Проверка по Email": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Ветвление по дубликату": {
+      "main": [
+        [
+          {
+            "node": "Создание записи в таблицу Дубликат",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Создание записи в таблицу Лиды",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Проверка 5 минут": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Ветвление по дубликату",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "timezone": "Europe/Moscow",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "aY25RqdPRk9RJJx0"
+  },
+  "versionId": "e98de096-ca0a-4a97-bc61-61631f11759a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b1c39cac49967f05d97658bd0278181ab2e8319adebe55046fb060ea4b208b08"
+  },
+  "id": "BZk74O3wdQIRPKcl",
+  "tags": []
+}

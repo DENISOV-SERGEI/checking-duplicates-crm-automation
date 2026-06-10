@@ -1,0 +1,164 @@
+{
+  "name": "Error Handler - Checking for duplicates",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1504,
+        -352
+      ],
+      "id": "3723f621-f326-4fc1-9b50-6df4a6a6e45d",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "chatId": "962790782",
+        "text": "=❌ <b>ОШИБКА В АВТОМАТИЗАЦИИ ДУБЛИКАТ</b> ❌\n\n<b>Workflow:</b> <code>{{ $json.workflow.name }}</code>\n<b>Ошибка:</b> <i>{{ $json.execution.error.message }}</i>\n<b>Нода:</b> <i>{{ $json.execution.lastNodeExecuted }}</i>\n<b>Дата/время:</b> <code>{{ new Date().toLocaleString('ru-RU') }}</code>\n\n🔧 Проверьте логи n8n и исправьте проблему.",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "HTML"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -1056,
+        -448
+      ],
+      "id": "27344ef8-89ac-4ad7-bee9-df85a248f854",
+      "name": "Уведомление admin",
+      "webhookId": "b05f78f2-df2f-49da-95fd-4876094f0867",
+      "credentials": {
+        "telegramApi": {
+          "id": "eJTaK5yLetSQvfjt",
+          "name": "@AlbatoCourse_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1MTb76wlEAjecsQd-CWUbEVP4g41fOOYISWpV9-vkE3U",
+          "mode": "list",
+          "cachedResultName": "Final Project - n8n",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1MTb76wlEAjecsQd-CWUbEVP4g41fOOYISWpV9-vkE3U/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1320077662,
+          "mode": "list",
+          "cachedResultName": "Ошибки",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1MTb76wlEAjecsQd-CWUbEVP4g41fOOYISWpV9-vkE3U/edit#gid=1320077662"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Workflow": "={{ $json.workflow.name }}",
+            "Links": "={{ $json.execution.url }}",
+            "Date": "={{ $now.format('dd.MM.yyyy HH:mm:ss') }}",
+            "Error": "={{ $json.execution.error.description }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Links",
+              "displayName": "Links",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Workflow",
+              "displayName": "Workflow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1056,
+        -240
+      ],
+      "id": "34014834-5b69-4508-bbc6-f0886f75470b",
+      "name": "Таблица ошибок",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "N43x9rw94YIs3Kho",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Уведомление admin",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Таблица ошибок",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "timezone": "Europe/Moscow",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "aY25RqdPRk9RJJx0"
+  },
+  "versionId": "ed030603-a681-4f51-a4ae-2697d2b9a4d3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b1c39cac49967f05d97658bd0278181ab2e8319adebe55046fb060ea4b208b08"
+  },
+  "id": "aY25RqdPRk9RJJx0",
+  "tags": []
+}
