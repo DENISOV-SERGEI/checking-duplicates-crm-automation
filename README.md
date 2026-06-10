@@ -22,7 +22,7 @@ Workflow решает задачу ручной проверки дублика�
 ## Архитектура
 
 ![Блок-схема](./docs/diagram.png)  
-_(Mermaid код в [docs/technical_specification.md](docs/technical_specification.md))_
+
 
 ## Требования
 - n8n (self-hosted, версия ≥ 2.0)
@@ -35,15 +35,15 @@ _(Mermaid код в [docs/technical_specification.md](docs/technical_specificati
 1. Импортируйте два workflow из папки `workflows/` в ваш n8n.
 2. Настройте credentials:
    - NocoDB API Token
-   - Telegram API (@AlbatoCourse_bot)
-   - SMTP (den.sa@bk.ru)
+   - Telegram API (Telegram_bot)
+   - SMTP (dxxxxxx@bk.ru)
    - Google Sheets OAuth2
 3. Проверьте переменные окружения: workspaceId, projectId, таблицы (mwclrxvlb31ha6w, m2z4uip08o7iytm), chat_id (962790782).
 4. Активируйте оба workflow.
 5. В основном workflow укажите в поле `errorWorkflow` ID обработчика (в настройках workflow).
 
-## Скриншоты
-См. папку [`screenshots`](./screenshots):
+## Скриншоты (основные)
+Все скриншоты находятся в папке [`screenshots`](./screenshots):
 - `canvas.png` – общий вид основного workflow
 - `new_lead_telegram.png` – уведомление менеджеру о новом лиде
 - `duplicate_telegram.png` – уведомление о дубликате
@@ -55,7 +55,6 @@ _(Mermaid код в [docs/technical_specification.md](docs/technical_specificati
 ## Документация
 - [Техническое задание](docs/technical_specification.md)
 - [Руководство пользователя](docs/user_manual.md)
-- [Отчёт о реализации](docs/report.md)
 
 ## Лицензия
 MIT (см. файл LICENSE)
