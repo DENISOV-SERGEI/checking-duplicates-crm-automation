@@ -45,7 +45,7 @@ Workflow решает задачу **ручной проверки дублик�
    - Telegram API (Telegram_bot)
    - SMTP (dxxxxxx@bk.ru)
    - Google Sheets OAuth2
-3. Проверьте переменные окружения: workspaceId, projectId, таблицы (mwclrxvlb31ha6w, m2z4uip08o7iytm), chat_id (962790782).
+3. Проверьте переменные окружения: workspaceId, projectId, таблицы (mwclrxvlb...., m2z.....7iytm), chat_id.
 4. Активируйте оба workflow.
 5. В основном workflow укажите в поле `errorWorkflow` ID обработчика (в настройках workflow).
 
