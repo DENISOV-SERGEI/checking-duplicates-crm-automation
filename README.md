@@ -44,7 +44,7 @@ Workflow решает задачу **ручной проверки дублик�
 2. Настройте credentials:
    - NocoDB API Token
    - Telegram API (Telegram_bot)
-   - SMTP (dxxxxxx@bk.ru)
+   - SMTP (`dxxxxxx@bk.ru`)
    - Google Sheets OAuth2
 3. Проверьте переменные окружения: workspaceId, projectId, таблицы (mwclrxvlb...., m2z.....7iytm), chat_id.
 4. Активируйте оба workflow.
