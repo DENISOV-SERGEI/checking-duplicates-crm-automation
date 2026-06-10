@@ -64,7 +64,7 @@ Workflow решает задачу **ручной проверки дублик�
 - [Руководство пользователя](docs/user_manual.md)
 
 ## 📄 Лицензия
-MIT (см. файл LICENSE)[`LICENSE`](./LICENSE)
+MIT (см. файл LICENSE)[`LICENSE`](./LICENSE.txt)
 
 ## 👤 Автор
 Студия автоматизации бизнеса
